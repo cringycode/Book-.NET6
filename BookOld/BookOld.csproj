@@ -14,14 +14,31 @@
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-    </ItemGroup>
-
-    <ItemGroup>
-      <AdditionalFiles Include="Views\Category\Index.cshtml" />
+      <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\Book.DataAccess\Book.DataAccess.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Views\Category\Create.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Category\Delete.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Category\Edit.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Category\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="Views\Home\Privacy.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Create.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Delete.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\Category\Edit.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\CoverType\Create.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\CoverType\Delete.cshtml" />
+      <AdditionalFiles Include="Areas\Admin\Views\CoverType\Edit.cshtml" />
+      <AdditionalFiles Include="Areas\Customer\Views\Home\Index.cshtml" />
+      <AdditionalFiles Include="Areas\Customer\Views\Home\Privacy.cshtml" />
     </ItemGroup>
 
 </Project>
