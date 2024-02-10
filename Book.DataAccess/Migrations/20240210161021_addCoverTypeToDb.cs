@@ -4,7 +4,7 @@
 
 namespace Book.DataAccess.Migrations
 {
-    public partial class AddCoverTypeToDb : Migration
+    public partial class addCoverTypeToDb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

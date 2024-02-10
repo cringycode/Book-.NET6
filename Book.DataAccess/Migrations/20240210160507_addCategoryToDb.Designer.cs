@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Book.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240207133625_AddCoverTypeToDb")]
-    partial class AddCoverTypeToDb
+    [Migration("20240210160507_addCategoryToDb")]
+    partial class addCategoryToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -45,24 +45,6 @@ namespace Book.DataAccess.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
-                });
-
-            modelBuilder.Entity("Book.Models.CoverType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CoverTypes");
                 });
 #pragma warning restore 612, 618
         }

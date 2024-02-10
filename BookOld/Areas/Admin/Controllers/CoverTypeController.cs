@@ -1,9 +1,8 @@
-﻿using Book.DataAccess.Data;
-using Book.DataAccess.Repository.IRepository;
+﻿using Book.DataAccess.Repository.IRepository;
 using Book.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookOld.Controllers;
+namespace BookOld.Areas.Admin.Controllers;
 
 [Area("Admin")]
 public class CoverTypeController : Controller
@@ -49,6 +48,7 @@ public class CoverTypeController : Controller
         {
             return NotFound();
         }
+
         var coverTypeFromDbFirst = _unitOfWork.CoverType.GetFirstOrDefault(u => u.Id == id);
 
         if (coverTypeFromDbFirst == null)
@@ -61,11 +61,11 @@ public class CoverTypeController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(Category obj)
+    public IActionResult Edit(CoverType obj)
     {
         if (ModelState.IsValid)
         {
-            _unitOfWork.Category.Update(obj);
+            _unitOfWork.CoverType.Update(obj);
             _unitOfWork.Save();
 
             TempData["success"] = "Category updated successfully";

@@ -1,9 +1,8 @@
-﻿using Book.DataAccess.Data;
-using Book.DataAccess.Repository.IRepository;
+﻿using Book.DataAccess.Repository.IRepository;
 using Book.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BookOld.Controllers;
+namespace BookOld.Areas.Admin.Controllers;
 
 [Area("Admin")]
 public class CategoryController : Controller
