@@ -19,9 +19,11 @@ namespace Book.Models
         [Required] [Range(1, 10000)] public double Price { get; set; }
         [ValidateNever] public string ImageUrl { get; set; }
 
+        [Display(Name = "Category")]
         [Required] public int CategoryId { get; set; }
         [ValidateNever] public Category Category { get; set; }
 
+        [Display(Name = "Cover Type")]
         [Required] public int CoverTypeId { get; set; }
         [ValidateNever] public CoverType CoverType { get; set; }
     }

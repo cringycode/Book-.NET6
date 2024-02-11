@@ -20,8 +20,7 @@ public class ProductController : Controller
 
     public IActionResult Index()
     {
-        IEnumerable<Product> objProductList = _unitOfWork.Product.GetAll();
-        return View(objProductList);
+        return View();
     }
 
     //GET
@@ -60,7 +59,6 @@ public class ProductController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Upsert(ProductVM obj, IFormFile? file)
     {
-
         if (ModelState.IsValid)
         {
             string wwwRootPath = _hostEnvironment.WebRootPath;
@@ -83,9 +81,10 @@ public class ProductController : Controller
                 {
                     file.CopyTo(fileStreams);
                 }
-                obj.Product.ImageUrl = @"\images\products\" + fileName + extension;
 
+                obj.Product.ImageUrl = @"\images\products\" + fileName + extension;
             }
+
             if (obj.Product.Id == 0)
             {
                 _unitOfWork.Product.Add(obj.Product);
@@ -94,45 +93,46 @@ public class ProductController : Controller
             {
                 _unitOfWork.Product.Update(obj.Product);
             }
+
             _unitOfWork.Save();
             TempData["success"] = "Product created successfully";
             return RedirectToAction("Index");
         }
+
         return View(obj);
     }
 
+    
+    #region API CALLS
 
-    public IActionResult Delete(int? id)
+    public IActionResult GetAll()
     {
-        if (id == null || id == 0)
-        {
-            return NotFound();
-        }
-
-        var productFromDbFirst = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
-
-        if (productFromDbFirst == null)
-        {
-            return NotFound();
-        }
-
-        return View(productFromDbFirst);
+        var productList = _unitOfWork.Product
+            .GetAll(includeProperties: "Category,CoverType");
+        return Json(new { data = productList });
     }
 
     //POST
-    [HttpPost, ActionName("Delete")]
+    [HttpDelete, ActionName("Delete")]
     [ValidateAntiForgeryToken]
-    public IActionResult DeletePOST(int? id)
+    public IActionResult Delete(int? id)
     {
         var obj = _unitOfWork.Product.GetFirstOrDefault(u => u.Id == id);
         if (obj == null)
         {
-            return NotFound();
+            return Json(new { success = false, message = "Error while deleting" });
+        }
+
+        var oldImagePath = Path.Combine(_hostEnvironment.WebRootPath, obj.ImageUrl.TrimStart('\\'));
+        if (System.IO.File.Exists(oldImagePath))
+        {
+            System.IO.File.Delete(oldImagePath);
         }
 
         _unitOfWork.Product.Remove(obj);
         _unitOfWork.Save();
-        TempData["success"] = "CoverType deleted successfully";
-        return RedirectToAction("Index");
+        return Json(new { success = true, message = "Delete Successful" });
     }
+
+    #endregion
 }
