@@ -14,7 +14,7 @@ function loadDataTable() {
             { "data": "author", "width": "15%" },
             { "data": "category.name", "width": "15%" },
             {
-                "data": "id",
+                "data": "id", 
                 "render": function (data) {
                     return `
                         <div class="w-75 btn-group" role="group">
