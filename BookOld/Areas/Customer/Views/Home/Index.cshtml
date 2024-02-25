@@ -64,7 +64,7 @@
                     <h5 class="product-title mb-0">@product.Title</h5>
                     <p class="product-author mb-0">by <b>@product.Author</b></p>
                     <p class="product-price mb-2">@product.Price.ToString("c")</p>
-                    <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary">Details</a>
+                    <a asp-action="Details" asp-controller="Home" asp asp-area="Customer" asp-route-productId="@product.Id" class="btn btn-primary">Details</a>
                 </div>
             </div>
         </div>
