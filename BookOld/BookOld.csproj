@@ -47,4 +47,9 @@
       <Folder Include="wwwroot\images\products\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Remove="wwwroot\images\products\068ea097-024a-470e-9177-6bc619edd87a.png" />
+      <Content Remove="wwwroot\images\products\eacc7ed7-6026-48d1-8987-b772c0cfbd25.png" />
+    </ItemGroup>
+
 </Project>
