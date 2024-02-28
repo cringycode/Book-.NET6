@@ -32,9 +32,47 @@ namespace BookOld.Areas.Customer.Controllers
             foreach (var cart in ShoppingCartVM.ListCart)
             {
                 cart.Price = GetPriceBasedOnQuantity(cart.Count, cart.Product.Price);
+                ShoppingCartVM.CartTotal += (cart.Price * cart.Count);
             }
 
             return View(ShoppingCartVM);
+        }
+
+        public IActionResult Summary()
+        {
+            return View();
+        }
+
+        public IActionResult Plus(int CartId)
+        {
+            var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == CartId);
+            _unitOfWork.ShoppingCart.IncrementCount(cart, 1);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Minus(int CartId)
+        {
+            var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == CartId);
+            if (cart.Count <= 1)
+            {
+                _unitOfWork.ShoppingCart.Remove(cart);
+            }
+            else
+            {
+                _unitOfWork.ShoppingCart.DecrementCount(cart, 1);
+            }
+
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
+        }
+
+        public IActionResult Remove(int CartId)
+        {
+            var cart = _unitOfWork.ShoppingCart.GetFirstOrDefault(u => u.Id == CartId);
+            _unitOfWork.ShoppingCart.Remove(cart);
+            _unitOfWork.Save();
+            return RedirectToAction(nameof(Index));
         }
 
         private double GetPriceBasedOnQuantity(double quantity, double price)

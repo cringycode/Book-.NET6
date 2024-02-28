@@ -52,10 +52,7 @@
                     <div class="col-12 col-lg-3 offset-lg-1 text-center">
                         <img src="@Model.Product.ImageUrl" width="100%" class="rounded"/>
                     </div>
-
-                    <div id="loginError" class="alert alert-danger d-none col-5 text-center" role="alert">
-                        Please log in first to add the product to your cart.
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -71,35 +68,3 @@
         </div>
     </div>
 </form>
-
-@section Scripts
-{
-    <script>
-        // Check if the user is logged in when clicking the "Add to Cart" button
-        document.getElementById('addToCartBtn').addEventListener('click', function (event) {
-            // Perform the check here
-            if (!isUserLoggedIn()) {
-                event.preventDefault(); // Prevent the form submission
-                displayLoginError();
-            }
-        });
-    
-        // Function to check if the user is logged in
-        function isUserLoggedIn() {
-            // Replace this condition with your logic to check if the user is logged in
-            // For example, you can check if a specific element that is present only when the user is logged in exists.
-            // Here, I'm assuming there's an element with the id 'loggedInUser'
-            return document.getElementById('loggedInUser') !== null;
-        }
-    
-        // Function to display the login error message
-        function displayLoginError() {
-            var loginError = document.getElementById('loginError');
-            loginError.classList.remove('d-none'); // Show the error message
-            setTimeout(function () {
-                loginError.classList.add('d-none'); // Hide the error message after a delay (you can adjust the delay as needed)
-            }, 5000); // Hide the error message after 5 seconds (5000 milliseconds)
-        }
-    </script>
-
-}
