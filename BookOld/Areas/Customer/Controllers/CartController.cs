@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Book.Models;
 using Book.Utility;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace BookOld.Areas.Customer.Controllers
 {
@@ -13,13 +14,15 @@ namespace BookOld.Areas.Customer.Controllers
     public class CartController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        [BindProperty]
-        public ShoppingCartVM ShoppingCartVM { get; set; }
+        private readonly IEmailSender _emailSender;
+
+        [BindProperty] public ShoppingCartVM ShoppingCartVM { get; set; }
         public int OrderTotal { get; set; }
 
-        public CartController(IUnitOfWork unitOfWork)
+        public CartController(IUnitOfWork unitOfWork, IEmailSender emailSender)
         {
             _unitOfWork = unitOfWork;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
